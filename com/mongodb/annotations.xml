@@ -1,0 +1,5 @@
+<root>
+    <item name='com.mongodb.MongoClient'>
+        <annotation name='java.lang.annotation.Deprecated'/>
+    </item>
+</root>

@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Diplom:jar">
+    <output-path>C:/</output-path>
+    <root id="archive" name="Diplom.jar">
+      <element id="module-output" name="Diplom" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../jackson-core-2.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../mongo.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../jackson-annotations-2.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../jackson-mapper-asl-1.9.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../jackson-databind-2.4.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
