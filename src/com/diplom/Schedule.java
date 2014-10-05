@@ -1,14 +1,21 @@
-package com.sergo;
+package com.diplom;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.*;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Schedule {
     static volatile int currentRow;
+    static int SEMESTER_WEEK = 4;
     static MongoClient mongoClient;
     static DB db;
     static DBCollection coll;
@@ -19,23 +26,46 @@ public class Schedule {
     static Map<String, RulesFields> rulesMap = new HashMap<>();
     static ArrayList<DBObject> resultArray = new ArrayList<>();
 
-    static boolean checkGeneByRules(String aCurPlanId, String day) {
+    static boolean checkGeneByRules(PlanFields curPlan, String day) {
         RulesFields rule = null;
+        int countHours = 0;
+        int maxLessOnWeek = curPlan.getMaxLessWeek();
+        int hourOnSemester = curPlan.getHoursSemester();
+        int lessInWeek1 = 0;
+        int lessInWeek2 = 0;
+
+
         try {
             rule = rulesMap.get(day);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         if (rule != null) {
-            if (!rule.getLessonId().equals(aCurPlanId)) {
+            if (rule.getLessonId().equals(curPlan.getId())) {
                 return false;
             }
         }
+        for (Map.Entry<String, String> schedElement : tempMap.entrySet()){
+            //System.out.println(schedElement.getKey());
+            String placeOfLesson = schedElement.getKey();
+            String idOfLesson = schedElement.getValue();
+            if (idOfLesson.equals(curPlan.getId())){
+                if (schedElement.getKey().contains("week-1")){
+                    if (++lessInWeek1 > maxLessOnWeek){
+                        return false;
+                    }
+                }else{
+                    lessInWeek2++;
+                }
+                System.out.println(curPlan.getLessonName()+ " - " + lessInWeek1);
+
+            }
+        }
+
         return true;
     }
 
     public static void genNewPlan(int curPosition) {
         for (PlanFields aCurPlan : curPlan) {
-            if (checkGeneByRules(aCurPlan.getId(), workWeek.get(curPosition))) {
+            if (checkGeneByRules(aCurPlan, workWeek.get(curPosition))) {
                 tempMap.put(workWeek.get(curPosition), aCurPlan.getId());
                 if (curPosition == workWeek.size() - 1) {
                     //resultArray.add(new BasicDBObject(tempMap));
@@ -75,22 +105,23 @@ public class Schedule {
         //File rulesJSONFile = new File(args[2]);
         File rulesJSONFile = new File("C:\\rules.json");
 
-        workWeek = mapper.readValue(weekJSONFile, new TypeReference<ArrayList<String>>() {});
-        curPlan = mapper.readValue(planJSONFile, new TypeReference<ArrayList<PlanFields>>() {
-        });
+        //workWeek = mapper.readValue(weekJSONFile, new TypeReference<ArrayList<String>>() {});
+        curPlan = mapper.readValue(planJSONFile, new TypeReference<ArrayList<PlanFields>>() {  });
         ArrayList<RulesFields> rulseTempPlan = mapper.readValue(rulesJSONFile, new TypeReference<ArrayList<RulesFields>>() {
         });
-        for (RulesFields el : rulseTempPlan) {
-            rulesMap.put(el.getDay(), el);
-        }
 
- /*       workWeek.add("week-1:monday-1");
+        for (RulesFields el : rulseTempPlan) {
+            //rulesMap.put(el.getDay(), el);
+        }
+        //System.out.println(curPlan);
+
+        workWeek.add("week-1:monday-1");
         workWeek.add("week-2:monday-1");
         workWeek.add("week-1:tuesday-1");
         workWeek.add("week-2:tuesday-1");
         workWeek.add("week-1:wednesday-1");
         workWeek.add("week-2:wednesday-1");
-       workWeek.add("week-1:thursday-1");
+       /*workWeek.add("week-1:thursday-1");
         workWeek.add("week-2:thursday-1");*/
 //        workWeek.add("week-1:friday-1");
 //        workWeek.add("week-2:friday-1");
@@ -103,9 +134,9 @@ public class Schedule {
 
         long start = new Date().getTime();
 
-        System.out.println(new Date().toString());
+        //System.out.println(new Date().toString());
         genNewPlan(0);
-        System.out.println(new Date().getTime() - start);
+        //System.out.println(new Date().getTime() - start);
 
         System.out.println(coll.count());
         //db.requestDone();

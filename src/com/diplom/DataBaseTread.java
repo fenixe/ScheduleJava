@@ -1,4 +1,4 @@
-package com.sergo;
+package com.diplom;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;

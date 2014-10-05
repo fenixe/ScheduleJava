@@ -1,7 +1,6 @@
-package com.sergo;
+package com.diplom;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

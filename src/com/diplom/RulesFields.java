@@ -1,4 +1,4 @@
-package com.sergo;
+package com.diplom;
 
 import com.fasterxml.jackson.annotation.*;
 
