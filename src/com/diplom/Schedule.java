@@ -28,7 +28,7 @@ public class Schedule {
         int countHours = 0;
         int maxLessOnWeek = curPlan.getMaxLessWeek();
         int hourOnSemester = curPlan.getHoursSemester();
-        int semester = 2;
+        int semester = 3;
         int lessInWeek1 = 0;
         int lessInWeek2 = 0;
 
@@ -58,7 +58,7 @@ public class Schedule {
             String idOfLesson = schedElement.getValue();
             if (idOfLesson.equals(curPlan.getId())){
                 //System.out.println((countHours));
-                if ((++countHours*semester) > hourOnSemester ){return false;}
+                if ((++countHours*2*semester) == hourOnSemester ){return false;}
                 //System.out.println(hourOnSemester);
             }
         }
@@ -104,7 +104,7 @@ public class Schedule {
         //File rulesJSONFile = new File(args[2]);
         File rulesJSONFile = new File("C:\\rules.json");
 
-        //workWeek = mapper.readValue(weekJSONFile, new TypeReference<ArrayList<String>>() {});
+        workWeek = mapper.readValue(weekJSONFile, new TypeReference<ArrayList<String>>() {});
         curPlan = mapper.readValue(planJSONFile, new TypeReference<ArrayList<PlanFields>>() {  });
         ArrayList<RulesFields> rulseTempPlan = mapper.readValue(rulesJSONFile, new TypeReference<ArrayList<RulesFields>>() {
         });
@@ -112,18 +112,19 @@ public class Schedule {
         for (RulesFields el : rulseTempPlan) {
             //rulesMap.put(el.getDay(), el);
         }
-        //System.out.println(curPlan);
 
-        workWeek.add("week-1:monday-1");
+
+       /* workWeek.add("week-1:monday-1");
         workWeek.add("week-2:monday-1");
         workWeek.add("week-1:tuesday-1");
         workWeek.add("week-2:tuesday-1");
-        workWeek.add("week-1:wednesday-1");
-        workWeek.add("week-2:wednesday-1");
+       /* workWeek.add("week-1:wednesday-1");
+    workWeek.add("week-2:wednesday-1");
        workWeek.add("week-1:thursday-1");
         workWeek.add("week-2:thursday-1");
         workWeek.add("week-1:friday-1");
-        workWeek.add("week-2:friday-1");
+        workWeek.add("week-2:friday-1");*/
+
 
 //        curPlan.add("1");
 //        curPlan.add("2");
@@ -140,8 +141,8 @@ public class Schedule {
         System.out.println(coll.count());
         //db.requestDone();
         DBCursor cursor = coll.find();
-        while (cursor.hasNext()) {
+       /* while (cursor.hasNext()) {
             System.out.println(cursor.next());
-        }
+        }*/
     }
 }

@@ -8,11 +8,11 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mongo" level="project" />
-    <orderEntry type="library" name="jackson-databind-2.4.2" level="project" />
-    <orderEntry type="library" name="jackson-core-2.4.2" level="project" />
-    <orderEntry type="library" name="jackson-mapper-asl-1.9.12" level="project" />
-    <orderEntry type="library" name="jackson-annotations-2.4.2" level="project" />
-    <orderEntry type="library" name="mongodb-async-driver-2.0.1" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.4.2" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-2.4.2" level="project" />
+    <orderEntry type="library" exported="" name="jackson-mapper-asl-1.9.12" level="project" />
+    <orderEntry type="library" exported="" name="jackson-annotations-2.4.2" level="project" />
+    <orderEntry type="library" exported="" name="mongodb-async-driver-2.0.1" level="project" />
   </component>
 </module>
 
