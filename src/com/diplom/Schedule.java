@@ -43,23 +43,26 @@ public class Schedule {
                 return false;
             }
         }
+
         for (Map.Entry<String, String> schedElement : tempMap.entrySet()){
-            //System.out.println(schedElement.getKey());
-            String placeOfLesson = schedElement.getKey();
             String idOfLesson = schedElement.getValue();
             if (idOfLesson.equals(curPlan.getId())){
                 if (schedElement.getKey().contains("week-1")){
-                    if (++lessInWeek1 > maxLessOnWeek){
-                        return false;
-                    }
+                    if (++lessInWeek1 > maxLessOnWeek){return false;}
                 }else{
-                    lessInWeek2++;
+                    if (++lessInWeek2 > maxLessOnWeek){return false;}
                 }
-                System.out.println(curPlan.getLessonName()+ " - " + lessInWeek1);
-
             }
         }
 
+        for (Map.Entry<String, String> schedElement : tempMap.entrySet()){
+            //System.out.println(schedElement);
+            String idOfLesson = schedElement.getValue();
+            if (idOfLesson.equals(curPlan.getId())){
+                if (++countHours*3 > hourOnSemester ){return false;}
+                //System.out.println(hourOnSemester);
+            }
+        }
         return true;
     }
 
@@ -68,12 +71,9 @@ public class Schedule {
             if (checkGeneByRules(aCurPlan, workWeek.get(curPosition))) {
                 tempMap.put(workWeek.get(curPosition), aCurPlan.getId());
                 if (curPosition == workWeek.size() - 1) {
-                    //resultArray.add(new BasicDBObject(tempMap));
                     try {
-                        //coll.insert(new BasicDBObject(tempMap));
-                        DataBaseTread dbThread = new DataBaseTread(tempMap);
-                        dbThread.run();
-                        //resultArray = new ArrayList<>();
+                        //DataBaseTread dbThread = new DataBaseTread(tempMap);
+                        //dbThread.run();
                     } catch (Exception ignored) {
                     }
                 } else {
@@ -138,7 +138,7 @@ public class Schedule {
         genNewPlan(0);
         //System.out.println(new Date().getTime() - start);
 
-        System.out.println(coll.count());
+        //System.out.println(coll.count());
         //db.requestDone();
         /*DBCursor cursor = coll.find();
         while (cursor.hasNext()) {

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="mongo">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../mongo.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mongo.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
