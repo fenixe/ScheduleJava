@@ -1,6 +1,6 @@
-package com.diplom;
+package com;
 
-import com.fasterxml.jackson.annotation.*;
+import org.codehaus.jackson.annotate.*;
 
 public class PlanFields {
     @JsonProperty

@@ -1,14 +1,16 @@
-package com.diplom;
+package com;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.*;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
+
 
 public class Schedule {
     static volatile int currentRow;
@@ -23,6 +25,8 @@ public class Schedule {
     static Map<String, RulesFields> rulesMap = new HashMap<>();
     static ArrayList<DBObject> resultArray = new ArrayList<>();
 
+    final static Logger logger = Logger.getLogger(String.valueOf(Schedule.class));
+
     static boolean checkGeneByRules(PlanFields curPlan, String day) {
         RulesFields rule = null;
         int countHours = 0;
@@ -31,7 +35,6 @@ public class Schedule {
         int semester = 3;
         int lessInWeek1 = 0;
         int lessInWeek2 = 0;
-
 
         try {
             rule = rulesMap.get(day);
@@ -55,6 +58,8 @@ public class Schedule {
 
         for (Map.Entry<String, String> schedElement : tempMap.entrySet()){
             //System.out.println(schedElement);
+            //logger.info("vbcnvbn");
+
             String idOfLesson = schedElement.getValue();
             if (idOfLesson.equals(curPlan.getId())){
                 //System.out.println((countHours));

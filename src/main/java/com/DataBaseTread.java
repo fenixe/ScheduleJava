@@ -1,4 +1,4 @@
-package com.diplom;
+package com;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
