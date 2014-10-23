@@ -2,7 +2,7 @@
   <artifact type="jar" name="Diplom:jar">
     <output-path>C:/temp/artifacts/Diplom_jar</output-path>
     <root id="archive" name="Diplom.jar">
-      <element id="module-output" name="Schedule" />
+      <element id="module-output" name="ScheduleJava" />
     </root>
   </artifact>
 </component>
